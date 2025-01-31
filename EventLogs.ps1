@@ -23,3 +23,5 @@ Check-EventLog "Security" 4616 "System time changed"
 Check-EventLog "System" 6005 "Event Log Service started"
 
 Read-Host -Prompt "Press Enter to exit"
+
+#run as admin if the script does'nt work
