@@ -17,7 +17,7 @@ foreach ($service in $services) {
                     $stoppedServiceMessages += "Bannable: $displayName should be necessarily running for Screensharing"
                 }
                 { $_ -in @("bam", "WSearch") } {
-                    $stoppedServiceMessages += "NOTE: $displayName Stopping is not bannable but some people prefer to ban for it"
+                    $stoppedServiceMessages += "NOTE: $displayName Stopping is not bannable but does affect screensharing a bit"
                 }
                 { $_ -in @("Schedule", "CDPUserSvc", "dam") } {
                     $stoppedServiceMessages += "$displayName Stopping is not considered bannable"
