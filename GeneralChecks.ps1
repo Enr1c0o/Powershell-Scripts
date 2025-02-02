@@ -77,3 +77,5 @@ if ($timeChangeEventLog) {
 }
 
 Read-Host -Prompt "Press Enter to exit"
+
+#If its not working inside .ps1 file then try running it in regular admin powershell
