@@ -1,3 +1,8 @@
+#If its not working inside .ps1 file then try running it in regular admin powershell
+#If its not working inside .ps1 file then try running it in regular admin powershell
+#If its not working inside .ps1 file then try running it in regular admin powershell
+#If its not working inside .ps1 file then try running it in regular admin powershell
+
 $isAdmin = [System.Security.Principal.WindowsPrincipal]::new([System.Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin) {
     Write-Host "Run as admin" -ForegroundColor Red
@@ -78,4 +83,7 @@ if ($timeChangeEventLog) {
 
 Read-Host -Prompt "Press Enter to exit"
 
+#If its not working inside .ps1 file then try running it in regular admin powershell
+#If its not working inside .ps1 file then try running it in regular admin powershell
+#If its not working inside .ps1 file then try running it in regular admin powershell
 #If its not working inside .ps1 file then try running it in regular admin powershell
