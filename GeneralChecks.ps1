@@ -53,20 +53,6 @@ try {
     Write-Host "Unable to retrieve Prefetching setting." -ForegroundColor Red
 }
 
-$prefetchFolder = "C:\Windows\Prefetch"
-if (Test-Path $prefetchFolder) {
-    try {
-        $latestFile = Get-ChildItem -Path $prefetchFolder -File | Sort-Object LastWriteTime -Descending | Select-Object -First 1
-        if ($latestFile.LastWriteTime -gt $lastBootTime) {
-            Write-Host "Prefetch modified after last restart at $($latestFile.LastWriteTime.ToString("yyyy-MM-dd hh:mm tt"))" -ForegroundColor Red
-        } else {
-            Write-Host "Prefetch not modified after last PC restart" -ForegroundColor Green
-        }
-    } catch {
-        Write-Host "Unable to access Prefetch folder." -ForegroundColor Red
-    }
-}
-
 $usnJournalEventLog = Get-WinEvent -FilterHashtable @{LogName='Application'; ID=3079} | Where-Object { $_.TimeCreated -gt $lastBootTime }
 if ($usnJournalEventLog) {
     Write-Host "USN journal cleared after restart at $($usnJournalEventLog[0].TimeCreated.ToString('yyyy-MM-dd hh:mm tt'))" -ForegroundColor Red
