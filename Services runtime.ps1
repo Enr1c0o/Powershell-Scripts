@@ -7,6 +7,12 @@ if (-not $isAdmin) {
     exit
 }
 
+$bootTime = (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime
+$formattedBootTime = $bootTime.ToString("MM/dd/yyyy hh:mm:ss tt")
+Write-Host "PC Boot Time: " -NoNewline -ForegroundColor Green
+Write-Host $formattedBootTime -ForegroundColor Yellow
+Write-Host ""
+
 $services = @(
     @{ServiceName = 'DPS';        DisplayName = 'DPS'},
     @{ServiceName = 'SysMain';    DisplayName = 'Sysmain'},
