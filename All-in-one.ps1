@@ -16,6 +16,21 @@ function Check-EventLog {
     }
 }
 
+function Check-RecentEventLog {
+    param ($logName, $eventIDs, $message)
+
+    $event = Get-WinEvent -LogName $logName -FilterXPath "*[System[EventID=$($eventIDs -join ' or EventID=')]]" -MaxEvents 1 -ErrorAction SilentlyContinue
+
+    if ($event) {
+        $eventTime = $event.TimeCreated.ToString("MM/dd/yyyy hh:mm:ss tt")
+        $eventID = $event.Id
+        Write-Host "$message (Event ID: $eventID) at: " -NoNewline -ForegroundColor Magenta
+        Write-Host $eventTime -ForegroundColor Yellow
+    } else {
+        Write-Host "$message logs were not found." -ForegroundColor Magenta
+    }
+}
+
 $lastBootTime = (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime
 $formattedBootTime = $lastBootTime.ToString("yyyy-MM-dd hh:mm tt")
 Write-Host "Last PC Boot Time: " -NoNewline -ForegroundColor Cyan
@@ -104,7 +119,7 @@ Write-Host ""
 
 Write-Host "Event Log Checks:" -ForegroundColor Yellow
 Check-EventLog "Application" 3079 "USN Journal last deleted"
-Check-EventLog "System" 104 "Event Logs last cleared"
+Check-RecentEventLog "System" @(104, 1102) "Event Logs last cleared"
 Check-EventLog "System" 1074 "User recent PC Shutdown"
 Check-EventLog "Security" 4616 "System time changed"
 Check-EventLog "System" 6005 "Event Log Service started"
